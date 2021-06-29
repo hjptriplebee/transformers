@@ -61,7 +61,7 @@ class DebertaV2Tokenizer(PreTrainedTokenizer):
         do_lower_case (:obj:`bool`, `optional`, defaults to :obj:`False`):
             Whether or not to lowercase the input when tokenizing.
         unk_token (:obj:`str`, `optional`, defaults to :obj:`"[UNK]"`):
-            The unknown token. A token that is not in the vocabulary cannot be converted to an ID and is set to be this
+            The unknown token. A token that is not in the vocabulary cannot be converted to an _ and is set to be this
             token instead.
         sep_token (:obj:`str`, `optional`, defaults to :obj:`"[SEP]"`):
             The separator token, which is used when building a sequence from multiple sequences, e.g. two sequences for
@@ -288,7 +288,7 @@ class SPMTokenizer:
         # <s> 1+1
         # </s> 2+1
         self.vocab = {spm.IdToPiece(i): i for i in range(bpe_vocab_size)}
-        self.id_to_tokens = [spm.IdToPiece(i) for i in range(bpe_vocab_size)]
+        self.ids_to_tokens = [spm.IdToPiece(i) for i in range(bpe_vocab_size)]
         # self.vocab['[PAD]'] = 0
         # self.vocab['[CLS]'] = 1
         # self.vocab['[SEP]'] = 2
@@ -351,7 +351,7 @@ class SPMTokenizer:
             self.special_tokens.append(token)
             if token not in self.vocab:
                 self.vocab[token] = len(self.vocab) - 1
-                self.id_to_tokens.append(token)
+                self.ids_to_tokens.append(token)
         return self.id(token)
 
     def part_of_whole_word(self, token, is_bos=False):
